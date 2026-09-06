@@ -4,7 +4,7 @@ An event-driven CI/CD data pipeline which automatically generates an AI code rev
 
 ## OVERVIEW
 
-This project is meant to automate code reviews within GitHub development workflows. When a contributor opens or updates a Pull Request, a GitHub Actions workflow triggers a serverless Python pipeline. The system extracts code patches, filters out irrelevant files, and then uses Gemini to detect any issues worth flagging such as bugs or security vulnerabilites. This AI code review is then posted directly back to the Pull Request.
+This project is meant to automate code reviews within GitHub development workflows, as my aim was to make a project which would actually be useful within the context of project development. When a contributor opens or updates a Pull Request, a GitHub Actions workflow triggers a serverless Python pipeline. The system extracts code patches, filters out irrelevant files, and then uses Gemini to detect any issues worth flagging such as bugs or security vulnerabilites. This AI code review is then posted directly back to the Pull Request.
 
 ## KEY FEATURES
 
