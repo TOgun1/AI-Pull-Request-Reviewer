@@ -1,0 +1,57 @@
+name: 'AI Pull Request Reviewer'
+description: 'Automated AI-powered pull request code reviews using Google Gemini'
+author: 'TOgun1'
+
+inputs:
+  gemini_api_key:
+    description: 'Google Gemini API Key'
+    required: true
+  github_token:
+    description: 'GitHub Token with pull-requests: write permission'
+    required: false
+    default: ${{ github.token }}
+  model:
+    description: 'Gemini model name to use for review'
+    required: false
+    default: 'gemini-3.6-flash'
+  repo:
+    description: 'Target repository in owner/repo format. Defaults to current repository.'
+    required: false
+    default: ${{ github.repository }}
+  pr_number:
+    description: 'Target PR number. Defaults to current PR from workflow event.'
+    required: false
+    default: ''
+  dry_run:
+    description: 'Set to "true" to print review to log without posting comment to PR.'
+    required: false
+    default: 'false'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      shell: bash
+      run: pip install -r ${{ github.action_path }}/requirements.txt
+
+    - name: Run AI Review
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+        GEMINI_API_KEY: ${{ inputs.gemini_api_key }}
+        GEMINI_MODEL: ${{ inputs.model }}
+        GITHUB_REPOSITORY: ${{ inputs.repo }}
+        PR_NUMBER: ${{ inputs.pr_number }}
+        GITHUB_EVENT_PATH: ${{ github.event_path }}
+      run: |
+        DRY_RUN_FLAG=""
+        if [ "${{ inputs.dry_run }}" = "true" ]; then
+          DRY_RUN_FLAG="--dry-run"
+        fi
+        python ${{ github.action_path }}/review.py $DRY_RUN_FLAG
+
