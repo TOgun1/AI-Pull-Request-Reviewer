@@ -6,17 +6,15 @@ An event-driven, reusable CI/CD pipeline and CLI tool that automatically reviews
 
 This project automates code reviews across GitHub development workflows. When a contributor opens or updates a Pull Request, the AI reviewer analyzes code diffs, filters out irrelevant assets and lockfiles, and utilizes Google Gemini to detect bugs, security vulnerabilities, edge cases, and performance optimizations. Constructive feedback is posted directly as a comment on the pull request.
 
-This tool can be used directly as a **reusable GitHub Action** across any of your repositories, or executed locally as a **CLI command** to review pull requests from any repository.
+This tool can be used directly as a **reusable GitHub Action** across any repository, or executed locally as a **CLI command** to review pull requests from any repository.
 
 ---
 
 ## USING IN OTHER PROJECTS (GitHub Action)
 
-You can plug this AI code reviewer into any other GitHub project in minutes without cloning or copying code.
-
 ### 1. Add Gemini API Key to Your Secrets
 1. Obtain an API key from [Google AI Studio](https://aistudio.google.com/).
-2. In your target repository, go to **Settings > Secrets and variables > Actions**.
+2. In the target repository, go to **Settings > Secrets and variables > Actions**.
 3. Create a new repository secret named `GEMINI_API_KEY` and paste your key.
 
 ### 2. Create the Workflow File
